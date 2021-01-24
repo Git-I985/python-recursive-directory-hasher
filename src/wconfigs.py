@@ -1,3 +1,11 @@
+"""
+Here tkinter widget 
+configurations and grid 
+positioning parameters
+
+Using: <CustomWidget>.setConfig(configs["key"])
+
+"""
 configs = {
     "LabelFolderPath": {
         "config": {

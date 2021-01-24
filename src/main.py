@@ -1,10 +1,10 @@
 from tkinter import filedialog, N, S, W, E
 import tkinter as tk
-from CsvWriter import CsvWriter
+from cswriter import CsvWriter
 # GUI
 from wconfigs import configs
-from Widgets import Input, Label, Button
-from Hasher import RecursiveDirectoryHasher
+from widgets import Input, Label, Button
+from hasher import RecursiveDirectoryHasher
 
 
 

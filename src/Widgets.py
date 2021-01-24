@@ -1,3 +1,8 @@
+"""
+Class wraps for tk widgets
+
+"""
+
 import tkinter as tk
 
 class Input(tk.Entry):
