@@ -1,4 +1,4 @@
-import csv, typing
+import csv
 
 class CsvWriter:
     def __init__(self, fname='export.csv'):
@@ -13,6 +13,3 @@ class CsvWriter:
         
     def save(self):
         self.f.close()
-
-# csvl.set_columns(['One', 'Two', '3'])
-# csvl.log(['1', '2', '4'])
