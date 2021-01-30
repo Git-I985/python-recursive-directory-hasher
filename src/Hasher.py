@@ -1,5 +1,7 @@
-import hashlib, os, typing
-from args import getArgs
+import hashlib
+import os
+import typing
+
 
 class RecursiveDirectoryHasher():
     def __init__(self, path: str):
@@ -9,7 +11,7 @@ class RecursiveDirectoryHasher():
         self.path = path
 
     def get_hash(self, file: typing.BinaryIO):
-        md5,sha1 = hashlib.md5(), hashlib.sha1()
+        md5, sha1 = hashlib.md5(), hashlib.sha1()
         buf = file.read()
         md5.update(buf)
         file.close()

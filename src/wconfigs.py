@@ -3,8 +3,6 @@ Here tkinter widget
 configurations and grid 
 positioning parameters
 
-Using: <CustomWidget>.setConfig(configs["key"])
-
 """
 configs = {
     "LabelFolderPath": {
@@ -47,7 +45,7 @@ configs = {
             "columnspan": 4,
             "sticky": "nswe",
             "padx": (50, 50),
-            "pady": (10,80)
+            "pady": (10, 80)
         }
     },
     "ButtonSelectFolder": {
@@ -98,7 +96,7 @@ configs = {
             "pady": (80, 10),
             "ipady": 5,
         }
-    },"EntrySelectExport": {
+    }, "EntrySelectExport": {
         "config": {
             "width": 50,
             "bd": 1
