@@ -5,23 +5,20 @@ Class wraps for tk widgets
 
 import tkinter as tk
 
-
 # TODO: передалать сеттер как в ткинтере
 
 
-class CustomWidget(tk.Widget):
-    def __init__(self, *args, **kwargs):
-        tk.Widget.__init__(self, master=None, *args, **kwargs)
-
-    def setConfig(self, config: dict):
+# Trait configurator wich contains setconfig method
+class TWidgetConfigurator():
+    def set_config(self, config: dict):
         self.config(**config['config'])
         self.grid(**config['grid'])
         return self
 
 
-class Input(CustomWidget):
+class Input(tk.Entry, TWidgetConfigurator):
     def __init__(self, *args, **kwargs):
-        CustomWidget.__init__(self, widgetName="entry", *args, **kwargs)
+        tk.Entry.__init__(self, args, **kwargs)
 
     def makeActive(self):
         self.config(state="normal")
@@ -37,26 +34,18 @@ class Input(CustomWidget):
         self.insert(0, text)
 
 
-i = Input()
-
-
-class Label(CustomWidget):
+class Label(tk.Label, TWidgetConfigurator):
     def __init__(self, *args, **kwargs):
-        CustomWidget.__init__(self, widgetName="label", *args, **kwargs)
+        tk.Label.__init__(self, *args, **kwargs)
 
 
-class Button(CustomWidget):
+class Button(tk.Button, TWidgetConfigurator):
     def __init__(self, *args, **kwargs):
-        CustomWidget.__init__(self, widgetName="button", *args, **kwargs)
+        tk.Button.__init__(self, *args, **kwargs)
 
-    def setConfig(self, config: dict):
-        self.config(**config['config'])
-        self.grid(**config['grid'])
-        return self
-
-    @property
+    @ property
     def onclick(self): pass
 
-    @onclick.setter
+    @ onclick.setter
     def onclick(self, callback):
         self.config(command=callback)

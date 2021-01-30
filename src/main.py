@@ -4,7 +4,7 @@ from cswriter import CsvWriter
 # GUI
 from wconfigs import configs
 from widgets import Input, Label, Button
-from hasher import RecursiveDirectoryHasher
+from hasher import RecursiveDirectoriesHasher
 
 
 class App():
@@ -13,25 +13,28 @@ class App():
 
 
 def select_folder():
-    selectedDirectory = filedialog.askdirectory(
-        title="Select hashing directory")
-    if selectedDirectory:
-        inputExport.setText(selectedDirectory)
+    directory = filedialog.askdirectory(title="Select hashing directory")
+    if directory:
+        input_folder.setText(directory)
 
 
 def select_export():
-    selectedExport = filedialog.asksaveasfilename(
-        filetypes=[("Csv files", '*.csv')], title="Choose export file")
-    if selectedExport:
-        print(selectedExport)
+    file = filedialog.asksaveasfile(
+        "w", filetypes=[("Csv files", '*.csv')],
+        title="Choose export file")
+    input_export.setText(file.name)
+    file.close()
 
 
 def run():
-    cw = CsvWriter('exports.csv')
+    directory = input_folder.get()
+    export = input_export.get()
+    input_export.clear()
+    input_folder.clear()
+    cw = CsvWriter(export)
     cw.set_columns(['File', 'MD5', 'SHA1'])
-    rfh = RecursiveDirectoryHasher(pathInput.get())
-    rfh.start(cw.write_row)
-    pathInput.delete(0, len(pathInput.get()))
+    rdh = RecursiveDirectoriesHasher(directory)
+    rdh.start(cw.write_row)
     cw.save()
 
 
@@ -40,19 +43,20 @@ window.title('RecursiveDirectoryHasher')
 window.resizable(False, False)
 
 
-Label().setConfig(configs['LabelFolderPath'])
-Label().setConfig(configs["LabelExportPath"])
+Label().set_config(configs['LabelFolderPath'])
+Label().set_config(configs["LabelExportPath"])
 
-btn_select_folder = Button()
+
+btn_select_folder = Button().set_config(configs["ButtonSelectFolder"])
 btn_select_folder.onclick = select_folder
-btn_select_folder.setConfig(configs["ButtonSelectFolder"])
 
-btn_select_export =
-Button().setConfig(configs["ButtonSelectExport"])
-Button().setConfig(configs["ButtonRun"])
+btn_select_export = Button().set_config(configs["ButtonSelectExport"])
+btn_select_export.onclick = select_export
 
-inputFolder = Input()
-inputFolder.setConfig(configs["EntrySelectFolder"])
-inputExport = Input().setConfig(configs["EntrySelectExport"])
+btn_run = Button().set_config(configs["ButtonRun"])
+btn_run.onclick = run
+
+input_folder = Input().set_config(configs["EntrySelectFolder"])
+input_export = Input().set_config(configs["EntrySelectExport"])
 
 window.mainloop()

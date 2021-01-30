@@ -3,7 +3,7 @@ import os
 import typing
 
 
-class RecursiveDirectoryHasher():
+class RecursiveDirectoriesHasher():
     def __init__(self, path: str):
         path = os.path.normpath(path)
         if not os.path.isdir(path):

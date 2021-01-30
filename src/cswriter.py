@@ -2,7 +2,7 @@ import csv
 
 
 class CsvWriter:
-    def __init__(self, fname='export.csv'):
+    def __init__(self, fname):
         self.f = open(fname, 'w', newline='')
         self.cw = csv.writer(self.f, delimiter=';')
 
