@@ -37,10 +37,10 @@ configs = {
             "activebackground": "#0083da",
             "height": 2,
             "fg": "#ffffff",
-            "activeforeground": "#fff"
+            "cursor": "hand2",
         },
         "grid": {
-            "row": 2,
+            "row": 3,
             "column": 0,
             "columnspan": 4,
             "sticky": "nswe",
@@ -54,6 +54,7 @@ configs = {
             "bg": "#d1d1d1",
             "bd": 0,
             "activebackground": "#bebebe",
+            "cursor": "hand2"
         },
         "grid": {
             "row": 0,
@@ -70,7 +71,8 @@ configs = {
             "text": "Select export",
             "bg": "#d1d1d1",
             "bd": 0,
-            "activebackground": "#bebebe"
+            "activebackground": "#bebebe",
+            "cursor": "hand2",
         },
         "grid": {
             "row": 1,
@@ -109,5 +111,19 @@ configs = {
             "pady": (10, 10),
             "ipady": 5,
         }
-    },
+    }, "CheckButtonSeparated": {
+        "config": {
+            "text": "File for each subdirectory",
+            "bd": 0,
+            "cursor": "hand2"
+        },
+        "grid": {
+            "row": 2,
+            "column": 0,
+            "columnspan": 2,
+            "padx": (50, 0),
+            "pady": (0, 10),
+            "sticky": "w",
+        }
+    }
 }

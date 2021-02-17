@@ -5,10 +5,9 @@ Class wraps for tk widgets
 
 import tkinter as tk
 
-# TODO: передалать сеттер как в ткинтере
-
-
 # Trait configurator wich contains setconfig method
+
+
 class TWidgetConfigurator():
     def set_config(self, config: dict):
         self.config(**config['config'])
@@ -42,6 +41,8 @@ class Label(tk.Label, TWidgetConfigurator):
 class Button(tk.Button, TWidgetConfigurator):
     def __init__(self, *args, **kwargs):
         tk.Button.__init__(self, *args, **kwargs)
+        self.bind('<Enter>', self.onhover)
+        self.bind('<Leave>', self.onleave)
 
     @ property
     def onclick(self): pass
@@ -49,3 +50,15 @@ class Button(tk.Button, TWidgetConfigurator):
     @ onclick.setter
     def onclick(self, callback):
         self.config(command=callback)
+
+    def onhover(self, event):
+        # self.config(bg="#00538a")
+        pass
+
+    def onleave(self, event):
+        self.config(bg=self['bg'])
+
+
+class CheckButton(tk.Checkbutton, TWidgetConfigurator):
+    def __init__(self, *args, **kwargs):
+        tk.Checkbutton.__init__(self, *args, **kwargs)
