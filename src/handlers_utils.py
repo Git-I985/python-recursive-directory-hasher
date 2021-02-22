@@ -25,7 +25,7 @@ def serial_number_mapper(data: dict, key: str = None):
         return year[len(year) // 2:]
 
     serial_number = data[key]
-    serial_number = 'F-{}.{}'.format(get_short_year(),
+    serial_number = 'Е-{}.{}'.format(get_short_year(),
                                      '/'.join(map(lambda x: str(x + 1), serial_number)))
 
     data[key] = serial_number
