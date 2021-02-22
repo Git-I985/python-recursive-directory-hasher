@@ -28,6 +28,11 @@ class Input(tk.Entry, TWidgetConfigurator):
     def clear(self):
         self.delete(0, len(self.get()))
 
+    def get_and_clear(self):
+        value = self.get()
+        self.clear()
+        return value
+
     def setText(self, text: str):
         self.clear()
         self.insert(0, text)

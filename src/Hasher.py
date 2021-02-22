@@ -20,12 +20,20 @@ class RecursiveDirectoriesHasher(Hasher):
             exit(f'{path} is not directory')
         self.path = path
 
-    def start(self, callback):
-        for path, dirs, files in os.walk(self.path):
-            for file in files:
+    def start(self, cb):
+        data = []
+        for dir_index, item in enumerate(os.walk(self.path)):
+            path, dirs, files = item
+            for file_index, file in enumerate(files):
                 file = os.path.join(path, file)
                 md5, sha1 = self.get_hash(open(file, 'rb'))
-                callback([file, md5, sha1])
+                data.append({
+                    "serial_number": (dir_index, file_index),
+                    "file": file,
+                    "md5": md5,
+                    "sha1": sha1
+                })
+        cb(data)
 
 
 class EachDirectoryHasher(Hasher):
@@ -44,7 +52,7 @@ class EachDirectoryHasher(Hasher):
 
         return directories
 
-    def start(self, callback):
+    def start(self, cb):
         dirs = self.get_directories_recursive(self.path)
         for dir_index, directory in enumerate(dirs):
             data = []
@@ -60,4 +68,4 @@ class EachDirectoryHasher(Hasher):
                         "sha1": sha1
 
                     })
-            callback(data, directory)
+            cb(data, directory)
