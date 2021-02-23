@@ -3,6 +3,7 @@ from hasher import RecursiveDirectoriesHasher, EachDirectoryHasher
 # GUI
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import messagebox as mb
 from wconfigs import configs
 from widgets import Button, CheckButton, Input, Label
 # Hashing
@@ -10,20 +11,38 @@ from handlers import edh_output_handler, rdh_output_handler
 from hasher import EachDirectoryHasher, RecursiveDirectoriesHasher
 import functools
 
-# TODO: попробовать сделать что-то с проверкой хешей через локальную сеть
+# TODO: обработка ошибок и вывод уведомлений
 
 
 def run():
-
     # Получение и очистка полей
-    directory = input_folder.get_and_clear()
-    export = input_export.get_and_clear()
+    directory = input_folder.get()
+    export = input_export.get()
 
-    # Hashing
-    hasher = EachDirectoryHasher(directory) if is_separated.get(
-    ) else RecursiveDirectoriesHasher(directory)
-    handler = edh_output_handler if is_separated.get() else rdh_output_handler
-    hasher.start(functools.partial(handler, export=export))
+    if not directory:
+        gui_execution_fail('Выберете хешируемую директорию')
+        return
+
+    if not export:
+        gui_execution_fail('Выберете путь экспорта')
+        return
+
+    btn_run.set_config(configs['ButtonRunInProcess'])
+
+    try:
+        # Hashing
+        hasher = EachDirectoryHasher(directory) if is_separated.get(
+        ) else RecursiveDirectoriesHasher(directory)
+        handler = edh_output_handler if is_separated.get() else rdh_output_handler
+        hasher.start(functools.partial(handler, export=export))
+    except Exception as e:
+        gui_execution_fail(e)
+    else:
+        input_folder.clear()
+        input_export.clear()
+        gui_execution_success()
+    finally:
+        btn_run.set_config(configs['ButtonRun'])
 
 # ====================================================
 #
@@ -36,6 +55,17 @@ def run():
 # ====================================================
 
 
+def gui_execution_success():
+    mb.showinfo(title='Результат выполнения',
+                message='Выполнение завершено успешно')
+
+
+def gui_execution_fail(msg):
+    mb.showerror(title='Ошибка', message=msg)
+
+# gui_execution_success()
+
+
 def select_folder():
     directory = filedialog.askdirectory(title="Select hashing directory")
     if directory:
@@ -43,10 +73,13 @@ def select_folder():
 
 
 def select_export_file():
-    file = filedialog.asksaveasfile("w", title="Choose export file")
+    file = filedialog.asksaveasfile(
+        "w", title="Choose export file", filetypes=[("Excel files", ".xlsx .xls")])
     if file:
-        input_export.setText(file.name)
-        file.close()
+        filename, extension = path.splitext(file.name)
+        if extension in [".xlsx", ".xls"]:
+            input_export.setText(file.name)
+            file.close()
 
 
 def select_export_directory():

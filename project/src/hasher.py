@@ -53,8 +53,7 @@ class EachDirectoryHasher(Hasher):
         return directories
 
     def start(self, cb):
-        dirs = self.get_directories_recursive(self.path)
-        for dir_index, directory in enumerate(dirs):
+        for dir_index, directory in enumerate(self.get_directories_recursive(self.path)):
             data = []
             for file_index, item in enumerate(os.listdir(directory)):
                 item = os.path.join(directory, item)
@@ -66,6 +65,5 @@ class EachDirectoryHasher(Hasher):
                         "file": item,
                         "md5": md5,
                         "sha1": sha1
-
                     })
             cb(data, directory)

@@ -48,6 +48,25 @@ configs = {
             "pady": (10, 80)
         }
     },
+    "ButtonRunInProcess": {
+        "config": {
+            "text": "In process",
+            "bg": "#d1d1d1",
+            "bd": 0,
+            "activebackground": "#bebebe",
+            "height": 2,
+            "fg": "#ffffff",
+            "cursor": "hand2",
+        },
+        "grid": {
+            "row": 3,
+            "column": 0,
+            "columnspan": 4,
+            "sticky": "nswe",
+            "padx": (50, 50),
+            "pady": (10, 80)
+        }
+    },
     "ButtonSelectFolder": {
         "config": {
             "text": "Select folder",

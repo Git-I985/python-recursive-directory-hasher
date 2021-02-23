@@ -1,5 +1,16 @@
+from os import path
+
+
 def exclude_common_path(data: list, key: str = None):
-    from os import path
+    """Strips out the matching part of the file path in the RecursiveDirectoriesHasher output array
+
+    Args:
+        data (list): output RecursiveDirectoriesHasher array
+        key (str): file path key in RecursiveDirectoriesHasher output array item
+
+    Returns:
+        (list): formatted RecursiveDirectoriesHasher output array with cuted matching part of the files paths
+    """
     common = path.commonpath(row[key] for row in data)
 
     def common_path_mapper(row):
@@ -10,7 +21,6 @@ def exclude_common_path(data: list, key: str = None):
 
 
 def basename_path_mapper(data: dict, key: str = None):
-    from os import path
     data[key] = path.basename(data[key])
     return data
 
