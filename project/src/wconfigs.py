@@ -1,9 +1,5 @@
-"""
-Here tkinter widget 
-configurations and grid 
-positioning parameters
+# Кнофиг внешнего вида элементов интерфейса
 
-"""
 configs = {
     "LabelFolderPath": {
         "config": {
@@ -40,7 +36,7 @@ configs = {
             "cursor": "hand2",
         },
         "grid": {
-            "row": 3,
+            "row": 4,
             "column": 0,
             "columnspan": 4,
             "sticky": "nswe",
@@ -59,7 +55,7 @@ configs = {
             "cursor": "hand2",
         },
         "grid": {
-            "row": 3,
+            "row": 4,
             "column": 0,
             "columnspan": 4,
             "sticky": "nswe",
@@ -92,6 +88,7 @@ configs = {
             "bd": 0,
             "activebackground": "#bebebe",
             "cursor": "hand2",
+            "width": 10
         },
         "grid": {
             "row": 1,
@@ -100,7 +97,7 @@ configs = {
             "pady": (10, 10),
             "sticky": "nswe",
             "ipadx": 10,
-            "ipady": 5
+            "ipady": 5,
         }
 
     },
@@ -112,7 +109,6 @@ configs = {
         "grid": {
             "row": 0,
             "column": 1,
-            "columnspan": 2,
             "padx": 10,
             "pady": (80, 10),
             "ipady": 5,
@@ -125,24 +121,38 @@ configs = {
         "grid": {
             "row": 1,
             "column": 1,
-            "columnspan": 2,
             "padx": 10,
             "pady": (10, 10),
             "ipady": 5,
         }
     }, "CheckButtonSeparated": {
         "config": {
-            "text": "File for each subdirectory",
+            "text": "File for each subdir",
             "bd": 0,
             "cursor": "hand2"
         },
         "grid": {
             "row": 2,
             "column": 0,
-            "columnspan": 2,
+            "columnspan": 4,
             "padx": (50, 0),
             "pady": (0, 10),
             "sticky": "w",
+        }
+    }, "CheckButtonVerify": {
+        "config": {
+            "text": "Verify mode",
+            "bd": 0,
+            "cursor": "hand2"
+        },
+        "grid": {
+            "row": 3,
+            "column": 0,
+            "columnspan": 4,
+            "padx": (50, 0),
+            "pady": (0, 10),
+            "sticky": "w",
+            "columnspan": 1,
         }
     }
 }

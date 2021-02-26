@@ -1,11 +1,6 @@
-"""
-Class wraps for tk widgets
-
-"""
+# Свои надстройки для стандартных кнопочек, полей ввода итд
 
 import tkinter as tk
-
-# Trait configurator wich contains setconfig method
 
 
 class TWidgetConfigurator():

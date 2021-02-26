@@ -2,6 +2,8 @@ import hashlib
 import os
 import typing
 
+# Базовый класс Hasher
+
 
 class Hasher():
     def get_hash(self, file: typing.BinaryIO):
@@ -11,6 +13,8 @@ class Hasher():
         md5.update(buf)
         sha1.update(buf)
         return md5.hexdigest(), sha1.hexdigest()
+
+# Класс для собирания в один файл
 
 
 class RecursiveDirectoriesHasher(Hasher):
@@ -35,6 +39,23 @@ class RecursiveDirectoriesHasher(Hasher):
                 })
         cb(data)
 
+    def start_no_cb(self):
+        data = []
+        for dir_index, item in enumerate(os.walk(self.path)):
+            path, dirs, files = item
+            for file_index, file in enumerate(files):
+                file = os.path.join(path, file)
+                md5, sha1 = self.get_hash(open(file, 'rb'))
+                data.append({
+                    "serial_number": (dir_index, file_index),
+                    "file": file,
+                    "md5": md5,
+                    "sha1": sha1
+                })
+        return data
+
+# Класс для собирания в разные файлы
+
 
 class EachDirectoryHasher(Hasher):
     def __init__(self, path: str):
@@ -58,7 +79,6 @@ class EachDirectoryHasher(Hasher):
             for file_index, item in enumerate(os.listdir(directory)):
                 item = os.path.join(directory, item)
                 if os.path.isfile(item):
-                    # serial_number = f'{dir_index + 1}/{file_index + 1}'
                     md5, sha1 = self.get_hash(open(item, 'rb'))
                     data.append({
                         "serial_number": (dir_index, file_index),

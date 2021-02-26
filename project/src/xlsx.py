@@ -1,3 +1,4 @@
+# функция сохранения в excel файл
 def save_to_xlsx(file: str, columns: list, data: list):
     from openpyxl import Workbook
     from openpyxl.styles import Font
